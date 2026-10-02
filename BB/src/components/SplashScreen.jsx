@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import logo from './Admin/logo.jpeg';
+import logo from '../assets/logo.png';
 
 export default function SplashScreen({ onDone }) {
   const [phase, setPhase] = useState('enter'); // enter | hold | exit
@@ -77,7 +77,7 @@ export default function SplashScreen({ onDone }) {
           <div style={{
             fontSize: 26, fontWeight: 900, color: '#0A1E3F',
             letterSpacing: '-0.5px', lineHeight: 1.1,
-          }}>శబ్దం TV</div>
+          }}>BHARATH 24</div>
           <div style={{
             fontSize: 11, fontWeight: 700, color: '#94a3b8',
             letterSpacing: 3, textTransform: 'uppercase', marginTop: 4,

@@ -62,26 +62,25 @@ export default function TrendingPopup({ onClose }) {
         }}
       />
 
-      {/* Sheet */}
+      {/* Pop Modal */}
       <div style={{
         position: 'fixed',
-        bottom: 0, left: 0, right: 0,
+        top: '50%', left: '50%',
         zIndex: 8001,
         background: '#ffffff',
-        borderRadius: '24px 24px 0 0',
-        boxShadow: '0 -8px 40px rgba(0,0,0,0.18)',
-        maxHeight: '88vh',
+        borderRadius: '24px',
+        boxShadow: '0 20px 60px rgba(0,0,0,0.25)',
+        width: '90%',
+        maxWidth: '450px',
+        maxHeight: '85vh',
         display: 'flex', flexDirection: 'column',
-        transition: 'transform 0.35s cubic-bezier(0.34,1.1,0.64,1), opacity 0.35s',
-        transform: visible ? 'translateY(0)' : 'translateY(100%)',
+        transition: 'all 0.4s cubic-bezier(0.34,1.56,0.64,1)',
+        transform: visible ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -45%) scale(0.95)',
         opacity: visible ? 1 : 0,
         overflowY: 'hidden',
       }}>
 
-        {/* Handle bar */}
-        <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 12 }}>
-          <div style={{ width: 40, height: 4, borderRadius: 10, background: '#e2e8f0' }} />
-        </div>
+        {/* Removed Handle bar since it's now a modal */}
 
         {/* Header */}
         <div style={{
