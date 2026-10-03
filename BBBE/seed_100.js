@@ -35,11 +35,13 @@ const sampleTitles = [
 
 async function seedData() {
   try {
+    await pool.query('SET search_path TO public;');
+    
     // Ensure categories exist
     const categoryIds = {};
     for (const cat of categories) {
       const res = await pool.query(`
-        INSERT INTO categories (name, slug) 
+        INSERT INTO public.categories (name, slug) 
         VALUES ($1, $2) 
         ON CONFLICT (slug) DO UPDATE SET name = EXCLUDED.name
         RETURNING id
@@ -64,8 +66,8 @@ async function seedData() {
       const is_trending = Math.random() > 0.8; // 20% chance of being trending
 
       await pool.query(`
-        INSERT INTO news (title, slug, content, excerpt, image, author, category_id, is_trending)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        INSERT INTO public.news (title, slug, content, excerpt, image, author, category_id, is_trending, is_published, status)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, true, 'approved')
         ON CONFLICT (slug) DO NOTHING
       `, [title, slug, content, excerpt, randomImg, randomAuthor, categoryIds[randomCat], is_trending]);
       count++;

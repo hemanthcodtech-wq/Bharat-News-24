@@ -98,6 +98,19 @@ const SingleArticle = () => {
       <Helmet>
         <title>{article.title} - Bharath 24 News</title>
         <meta name="description" content={article.excerpt || ''} />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={article.title} />
+        <meta property="og:description" content={article.excerpt || ''} />
+        {article.image && <meta property="og:image" content={article.image} />}
+        <meta property="og:url" content={window.location.href} />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={article.title} />
+        <meta name="twitter:description" content={article.excerpt || ''} />
+        {article.image && <meta name="twitter:image" content={article.image} />}
       </Helmet>
 
       <div className="w-full px-4 lg:px-8 xl:px-12 pt-6">
