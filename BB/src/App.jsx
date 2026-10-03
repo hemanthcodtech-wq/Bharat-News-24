@@ -63,9 +63,7 @@ const MainLayout = () => {
 function App() {
   const location = useLocation();
   const isPublicRoute = !location.pathname.startsWith('/admin') &&
-                        !location.pathname.startsWith('/employee') &&
-                        !location.pathname.startsWith('/login') &&
-                        !location.pathname.startsWith('/employee-login');
+                        !location.pathname.startsWith('/login');
 
   const [showSplash,   setShowSplash]   = useState(() => isPublicRoute && !sessionStorage.getItem('splashShown'));
   const [showTrending, setShowTrending] = useState(false);
@@ -121,14 +119,16 @@ function App() {
       </Route>
 
       {/* Employee Portal Routes (Protected) */}
+      {/* 
       <Route element={<ProtectedRoute allowedRoles={['employee']} />}>
-        <Route path="/employee" element={<EmployeeLayout />}>
+        <Route path="/employee789" element={<EmployeeLayout />}>
           <Route index element={<EmployeeDashboard />} />
           <Route path="dashboard" element={<EmployeeDashboard />} />
           <Route path="news" element={<EmployeeNewsManagement />} />
           <Route path="profile" element={<EmployeeProfile />} />
         </Route>
       </Route>
+      */}
     </Routes>
     </>
   );

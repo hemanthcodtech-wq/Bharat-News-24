@@ -12,16 +12,14 @@ import {
   FaBullhorn,
   FaUser
 } from 'react-icons/fa';
-import logo from "../Admin/logo.jpeg"
-
-const navItems = [
+import logo from "../../assets/logo.png";const navItems = [
   { name: 'Dashboard', path: '/admin/dashboard', icon: FaThLarge },
   { name: 'News Management', path: '/admin/news', icon: FaRegNewspaper },
-  { name: 'Employee News Requests', path: '/admin/employee-news', icon: FaUserFriends },
+  // { name: 'Employee News Requests', path: '/admin/employee-news', icon: FaUserFriends },
   { name: 'Breaking News', path: '/admin/breaking-news', icon: FaBolt },
   { name: 'Categories', path: '/admin/categories', icon: FaMapMarkerAlt },
-  { name: 'Employees', path: '/admin/employees', icon: FaUserFriends },
-  { name: 'CMS Pages', path: '/admin/cms-pages', icon: FaCog },
+  // { name: 'Employees', path: '/admin/employees', icon: FaUserFriends },
+  // { name: 'CMS Pages', path: '/admin/cms-pages', icon: FaCog },
   { name: 'E-Paper', path: '/admin/epaper', icon: FaRegFileAlt },
   { name: 'Ads', path: '/admin/ads', icon: FaBullhorn },
   { name: 'Profile', path: '/admin/profile', icon: FaUser },
@@ -52,7 +50,7 @@ const AdminSidebar = ({ onClose }) => {
         <div className="flex items-center">
           <img 
             src={logo} 
-            alt="Balagam TV" 
+            alt="Bharath 24 News" 
             className="h-10 bg-white p-1 rounded object-contain mr-3"
           />
           <div className="flex flex-col">
