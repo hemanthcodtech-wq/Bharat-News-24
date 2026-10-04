@@ -5,7 +5,10 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigins = ['http://localhost:5173', 'https://bharath24-news.vercel.app', 'https://bharat-news-24.vercel.app', process.env.FRONTEND_URL].filter(Boolean);
+const allowedOrigins = ['http://localhost:5173', 'https://bharath24-news.vercel.app', 'https://bharat-news-24.vercel.app',
+    'https://www.bharath24news.com',
+    'https://bharath24news.com',
+    process.env.FRONTEND_URL].filter(Boolean);
 app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 
