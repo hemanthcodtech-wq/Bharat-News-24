@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "api/**/*.js": {
+      "includeFiles": "{dist/index.html,index.html}"
+    }
+  },
   "rewrites": [
     { "source": "/article/:slug", "destination": "/api/article?slug=:slug" },
     { "source": "/(.*)", "destination": "/index.html" }
