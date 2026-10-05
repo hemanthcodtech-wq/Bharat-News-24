@@ -82,6 +82,8 @@ export default async function(req, res) {
         <meta property="og:title" content="${title}" />
         <meta property="og:description" content="${desc}" />
         <meta property="og:image" content="${image}" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="og:url" content="${url}" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="${title}" />
@@ -89,12 +91,13 @@ export default async function(req, res) {
         <meta name="twitter:image" content="${image}" />
       `;
 
-      // Replace the default title or just insert before </head>
-      // We will insert before </head> to ensure they are added
-      html = html.replace('</head>', `${metaTags}</head>`);
-      
-      // Optionally remove the default title to avoid duplicates
+      // Remove default meta tags so they don't override the article ones (WhatsApp picks the first og:image it sees)
+      html = html.replace(/<meta property="og:[^>]+>/g, '');
+      html = html.replace(/<meta name="twitter:[^>]+>/g, '');
       html = html.replace(/<title>.*?<\/title>/, '');
+
+      // Replace the default title or just insert before </head>
+      html = html.replace('</head>', `${metaTags}</head>`);
     }
 
     res.setHeader('Content-Type', 'text/html');
