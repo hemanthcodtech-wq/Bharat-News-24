@@ -21,7 +21,7 @@ const Ticker = () => {
           <span>BREAKING</span>
         </div>
         <div className="flex-1 overflow-hidden relative h-full flex items-center">
-          <div className="animate-[ticker_30s_linear_infinite] inline-block font-semibold text-[16px]">
+          <div className="animate-[ticker_15s_linear_infinite] inline-block font-semibold text-[16px]">
             {items.map((item) => (
               <span key={item.id} className="mx-4">
                 {item.article_slug ? (

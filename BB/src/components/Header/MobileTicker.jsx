@@ -56,8 +56,8 @@ const MobileTicker = () => {
   // The first set and second set will flow seamlessly
   const duplicatedItems = [...items, ...items];
 
-  // Calculate duration based on item count for consistent speed (approx 8s per item)
-  const duration = Math.max(items.length * 8, 20);
+  // Calculate duration based on item count for consistent speed (approx 5s per item)
+  const duration = Math.max(items.length * 5, 12);
 
   return (
     <div 
