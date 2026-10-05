@@ -40,14 +40,29 @@ module.exports = async (req, res) => {
     const apiUrl = `https://bharat-news-24-nji7.vercel.app/api/news/${encodeURIComponent(slug)}`;
     
     const fetchArticle = () => new Promise((resolve, reject) => {
-      https.get(apiUrl, (response) => {
+      const reqTimeout = setTimeout(() => {
+        resolve(null); // Resolve with null on timeout to fallback to default HTML
+      }, 8000); // 8 seconds timeout to prevent Vercel 10s hard timeout
+
+      const req = https.get(apiUrl, (response) => {
         let data = '';
         response.on('data', chunk => data += chunk);
         response.on('end', () => {
+          clearTimeout(reqTimeout);
           try { resolve(JSON.parse(data)); }
           catch(e) { resolve(null); }
         });
-      }).on('error', reject);
+      }).on('error', (err) => {
+        clearTimeout(reqTimeout);
+        resolve(null); // Resolve null on error rather than rejecting to serve fallback
+      });
+      
+      // In case the connection takes too long to even start
+      req.on('timeout', () => {
+        req.destroy();
+        clearTimeout(reqTimeout);
+        resolve(null);
+      });
     });
 
     const article = await fetchArticle();
@@ -92,7 +107,8 @@ module.exports = async (req, res) => {
         ? path.join(process.cwd(), 'dist', 'index.html') 
         : path.join(process.cwd(), 'index.html');
       const html = fs.readFileSync(htmlPath, 'utf8');
-      res.setHeader('Content-Type', 'text/html').send(html);
+      res.setHeader('Content-Type', 'text/html');
+      res.status(200).send(html);
     } catch(e) {
       res.status(500).send('Internal Server Error');
     }
