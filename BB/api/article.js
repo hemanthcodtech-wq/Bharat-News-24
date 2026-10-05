@@ -17,19 +17,19 @@ export default async function(req, res) {
       if (match) slug = match[1];
     }
 
-    // Read the static index.html built by Vite
-    // In Vercel, the output dir for Vite is usually 'dist'
-    let htmlPath = path.join(process.cwd(), 'dist', 'index.html');
-    if (!fs.existsSync(htmlPath)) {
-      // Fallback for local testing or different output dir
-      htmlPath = path.join(process.cwd(), 'index.html');
-    }
-    
+    const protocol = req.headers['x-forwarded-proto'] || (req.socket.encrypted ? 'https' : 'http');
+    const host = req.headers['x-forwarded-host'] || req.headers.host;
+    const baseUrl = `${protocol}://${host}`;
+
     let html = '';
-    if (fs.existsSync(htmlPath)) {
-      html = fs.readFileSync(htmlPath, 'utf8');
-    } else {
-      return res.status(500).send('index.html not found');
+    try {
+      const indexRes = await fetch(`${baseUrl}/`);
+      html = await indexRes.text();
+    } catch (err) {
+      console.error('Failed to fetch index.html:', err);
+    }
+    if (!html) {
+      return res.status(500).send('Failed to load index.html');
     }
 
     if (!slug) {
@@ -102,14 +102,9 @@ export default async function(req, res) {
     res.send(html);
   } catch (error) {
     console.error('Error generating dynamic HTML:', error);
-    // On error, just serve the default index.html without dynamic tags
     try {
-      const htmlPath = fs.existsSync(path.join(process.cwd(), 'dist', 'index.html')) 
-        ? path.join(process.cwd(), 'dist', 'index.html') 
-        : path.join(process.cwd(), 'index.html');
-      const html = fs.readFileSync(htmlPath, 'utf8');
       res.setHeader('Content-Type', 'text/html');
-      res.status(200).send(html);
+      res.status(200).send(html || '<!doctype html><html><head><title>Bharath 24</title></head><body><div id="root"></div><script type="module" src="/src/main.jsx"></script></body></html>');
     } catch(e) {
       res.status(500).send('Internal Server Error');
     }
