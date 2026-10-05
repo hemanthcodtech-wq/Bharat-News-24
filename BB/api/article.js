@@ -1,8 +1,8 @@
-const fs = require('fs');
-const path = require('path');
-const https = require('https');
+import fs from 'fs';
+import path from 'path';
+import https from 'https';
 
-module.exports = async (req, res) => {
+export default async function(req, res) {
   try {
     // Vercel extracts path parameters from the rewrite rule if configured, 
     // or we can parse it from the URL.
@@ -33,7 +33,8 @@ module.exports = async (req, res) => {
     }
 
     if (!slug) {
-      return res.setHeader('Content-Type', 'text/html').send(html);
+      res.setHeader('Content-Type', 'text/html');
+      return res.status(200).send(html);
     }
 
     // Fetch the article from the backend
