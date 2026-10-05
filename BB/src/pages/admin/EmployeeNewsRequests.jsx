@@ -12,7 +12,7 @@ import CloudinaryUpload from '../../components/Admin/CloudinaryUpload';
 
 const emptyForm = { title: '', slug: '', content: '', excerpt: '', image: '', author: '', category: '', sub_category: '', is_published: true, is_trending: false };
 
-const toSlug = (text) => text.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^\w-]/g, '').slice(0, 80);
+const toSlug = (text) => text.toLowerCase().trim().replace(/[\u200B-\u200D\uFEFF]/g, '').replace(/\s+/g, '-').replace(/[^\p{L}\p{N}\p{M}-]/gu, '').slice(0, 150);
 
 const EmployeeNewsRequests = () => {
   const [news, setNews] = useState([]);
