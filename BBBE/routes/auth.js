@@ -126,7 +126,7 @@ router.post('/forgot-password', async (req, res) => {
         }
       });
       await transporter.sendMail({
-        from: '"Bharath 24 News" <no-reply@bharath24tv.com>',
+        from: '"Bharath 24 News" <no-reply@bharath24news.com>',
         to: email,
         subject: 'Password Reset Code',
         text: `Your password reset code is: ${resetCode}. It expires in 15 minutes.`,

@@ -5,4 +5,4 @@ Disallow: /employee-login
 Disallow: /login
 Disallow: /employee
 
-Sitemap: https://bharath24tv.com/sitemap.xml
+Sitemap: https://bharath24news.com/sitemap.xml

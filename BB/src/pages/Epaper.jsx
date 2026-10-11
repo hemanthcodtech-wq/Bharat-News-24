@@ -332,7 +332,13 @@ const Epaper = () => {
   return (
     <>
       <Helmet>
-        <title>E-Paper Archive - Bharath 24 News</title>
+        <title>ఈ-పేపర్ ఆర్కైవ్ (E-Paper Archive) - Bharath 24 News</title>
+        <meta name="description" content="Read and download Bharath 24 Telugu daily e-paper edition and archives online." />
+        <link rel="canonical" href="https://bharath24news.com/epaper" />
+        <meta property="og:title" content="ఈ-పేపర్ ఆర్కైవ్ - Bharath 24 News" />
+        <meta property="og:description" content="Read and download Bharath 24 Telugu daily e-paper edition and archives online." />
+        <meta property="og:url" content="https://bharath24news.com/epaper" />
+        <meta property="og:image" content="https://bharath24news.com/og-image.png" />
       </Helmet>
 
       <div className="w-full px-4 lg:px-8 xl:px-12 pt-8 pb-16 bg-gray-50 min-h-screen">

@@ -38,7 +38,7 @@ export default async function(req, res) {
     }
 
     // Fetch the article from the backend
-    const apiUrl = `https://bharat-news-24-nji7.vercel.app/api/news/${encodeURIComponent(slug)}`;
+    const apiUrl = `https://bharat-news-24-94ag.vercel.app/api/news/${encodeURIComponent(slug)}`;
     
     const fetchArticle = () => new Promise((resolve, reject) => {
       const reqTimeout = setTimeout(() => {
@@ -70,31 +70,74 @@ export default async function(req, res) {
 
     if (article && !article.error) {
       const title = article.title ? article.title.replace(/"/g, '&quot;') : 'Bharath 24 News';
-      const desc = article.excerpt ? article.excerpt.replace(/"/g, '&quot;') : 'Read the latest news on Bharath 24 News';
-      const image = article.image || 'https://www.bharath24news.com/logo.png'; // default fallback
-      const url = `https://www.bharath24news.com/article/${slug}`;
+      const desc = article.excerpt ? article.excerpt.replace(/"/g, '&quot;') : (article.content ? article.content.substring(0, 160).replace(/"/g, '&quot;').replace(/\n/g, ' ') : 'Read the latest news on Bharath 24 News');
+      const image = article.image || 'https://bharath24news.com/logo.png';
+      const url = `https://bharath24news.com/article/${encodeURIComponent(slug)}`;
+      const publishedTime = article.created_at || new Date().toISOString();
+      const modifiedTime = article.updated_at || publishedTime;
+      const author = article.author || 'Bharath 24 News';
+      const category = article.category || 'News';
+
+      const jsonLd = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": url
+        },
+        "headline": article.title || 'Bharath 24 News',
+        "description": desc,
+        "image": [image],
+        "datePublished": publishedTime,
+        "dateModified": modifiedTime,
+        "author": {
+          "@type": "Person",
+          "name": author
+        },
+        "publisher": {
+          "@type": "NewsMediaOrganization",
+          "name": "Bharath 24 News",
+          "url": "https://bharath24news.com/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://bharath24news.com/logo.png"
+          }
+        },
+        "articleSection": category
+      });
 
       // Inject Meta Tags into the HTML <head>
       const metaTags = `
         <title>${title} - Bharath 24 News</title>
         <meta name="description" content="${desc}" />
+        <link rel="canonical" href="${url}" />
         <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="Bharath 24 News" />
+        <meta property="og:locale" content="te_IN" />
         <meta property="og:title" content="${title}" />
         <meta property="og:description" content="${desc}" />
         <meta property="og:image" content="${image}" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:url" content="${url}" />
+        <meta property="article:published_time" content="${publishedTime}" />
+        <meta property="article:modified_time" content="${modifiedTime}" />
+        <meta property="article:section" content="${category}" />
+        <meta property="article:author" content="${author}" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="${title}" />
         <meta name="twitter:description" content="${desc}" />
         <meta name="twitter:image" content="${image}" />
+        <script type="application/ld+json">${jsonLd}</script>
       `;
 
-      // Remove default meta tags so they don't override the article ones (WhatsApp picks the first og:image it sees)
-      html = html.replace(/<meta property="og:[^>]+>/g, '');
-      html = html.replace(/<meta name="twitter:[^>]+>/g, '');
+      // Remove default meta tags so they don't override the article ones
       html = html.replace(/<title>.*?<\/title>/, '');
+      html = html.replace(/<meta name="description"[^>]*>/g, '');
+      html = html.replace(/<link rel="canonical"[^>]*>/g, '');
+      html = html.replace(/<meta property="og:[^>]+>/g, '');
+      html = html.replace(/<meta property="article:[^>]+>/g, '');
+      html = html.replace(/<meta name="twitter:[^>]+>/g, '');
 
       // Replace the default title or just insert before </head>
       html = html.replace('</head>', `${metaTags}</head>`);

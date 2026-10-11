@@ -2,11 +2,17 @@ import { Helmet } from 'react-helmet-async';
 import { useState } from 'react';
 import { FaBullseye, FaRocket, FaEye, FaArrowRight } from 'react-icons/fa6';
 
-const StaticPage = ({ title, children, containerClass = "bg-white p-8 rounded shadow-sm text-gray-700", bgClass = "bg-gray-50" }) => {
+const StaticPage = ({ title, children, containerClass = "bg-white p-8 rounded shadow-sm text-gray-700", bgClass = "bg-gray-50", slug = "about" }) => {
   return (
     <>
       <Helmet>
-        <title>{title} - BHARATH 24</title>
+        <title>{title} - Bharath 24 News</title>
+        <meta name="description" content={`${title} - Bharath 24 Digital E-Paper and Media Portal.`} />
+        <link rel="canonical" href={`https://bharath24news.com/${slug}`} />
+        <meta property="og:title" content={`${title} - Bharath 24 News`} />
+        <meta property="og:description" content={`${title} - Bharath 24 Digital E-Paper and Media Portal.`} />
+        <meta property="og:url" content={`https://bharath24news.com/${slug}`} />
+        <meta property="og:image" content="https://bharath24news.com/og-image.png" />
       </Helmet>
       <div className={`min-h-screen relative overflow-hidden ${bgClass} py-20`}>
         {/* Ambient Background Elements */}
@@ -39,7 +45,7 @@ const StaticPage = ({ title, children, containerClass = "bg-white p-8 rounded sh
 };
 
 export const About = () => (
-  <StaticPage title="About Us" containerClass="w-full" bgClass="bg-white">
+  <StaticPage title="About Us" slug="about" containerClass="w-full" bgClass="bg-white">
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10">
       
       {/* Purpose Card */}
@@ -143,7 +149,7 @@ export const Contact = () => {
   };
 
   return (
-    <StaticPage title="Contact Us" containerClass="w-full" bgClass="bg-white">
+    <StaticPage title="Contact Us" slug="contact" containerClass="w-full" bgClass="bg-white">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
       <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-center">
         <h2 className="text-3xl font-bold text-gray-900 mb-6">Get in Touch</h2>
@@ -199,7 +205,7 @@ export const Contact = () => {
 };
 
 export const Advertise = () => (
-  <StaticPage title="Advertise with Us" containerClass="w-full max-w-4xl mx-auto" bgClass="bg-white">
+  <StaticPage title="Advertise with Us" slug="advertise" containerClass="w-full max-w-4xl mx-auto" bgClass="bg-white">
     <div className="bg-white/80 p-8 md:p-12 rounded-3xl shadow-sm border border-gray-100 text-center">
       <div className="w-20 h-20 bg-gradient-to-br from-orange-100 to-red-100 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner border border-white">
         <FaRocket className="text-4xl text-brand-red" />
@@ -226,7 +232,7 @@ export const Advertise = () => (
 );
 
 export const Privacy = () => (
-  <StaticPage title="Privacy Policy" containerClass="relative bg-white p-10 md:p-16 rounded-[2rem] shadow-sm max-w-4xl mx-auto border border-gray-100 z-10">
+  <StaticPage title="Privacy Policy" slug="privacy" containerClass="relative bg-white p-10 md:p-16 rounded-[2rem] shadow-sm max-w-4xl mx-auto border border-gray-100 z-10">
     <div className="prose prose-lg prose-red max-w-none text-gray-600">
       <p className="font-medium text-xl mb-6">
         Your privacy is important to us. This privacy policy explains how we collect and use your data to provide a seamless and secure experience.
@@ -244,7 +250,7 @@ export const Privacy = () => (
 );
 
 export const Terms = () => (
-  <StaticPage title="Terms & Conditions" containerClass="relative bg-white p-10 md:p-16 rounded-[2rem] shadow-sm max-w-4xl mx-auto border border-gray-100 z-10">
+  <StaticPage title="Terms & Conditions" slug="terms" containerClass="relative bg-white p-10 md:p-16 rounded-[2rem] shadow-sm max-w-4xl mx-auto border border-gray-100 z-10">
     <div className="prose prose-lg prose-red max-w-none text-gray-600">
       <p className="font-medium text-xl mb-6">
         Welcome to Bharath 24 News. By accessing our website, you agree to these terms and conditions.

@@ -88,7 +88,16 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Bharath 24 News - Telugu News Portal</title>
+        <title>BHARATH 24 - Latest Telugu News & Digital Media Portal</title>
+        <meta name="description" content="Bharath 24 Digital Media Portal brings you the latest and breaking Telugu news, politics, crime, entertainment, sports, epaper, and trending shorts across Telangana and Andhra Pradesh." />
+        <link rel="canonical" href="https://bharath24news.com/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Bharath 24 News" />
+        <meta property="og:locale" content="te_IN" />
+        <meta property="og:title" content="BHARATH 24 - Latest Telugu News & Digital Media Portal" />
+        <meta property="og:description" content="Get the latest Telugu news updates, e-paper, and trending stories on Bharath 24 Digital Media Portal." />
+        <meta property="og:url" content="https://bharath24news.com/" />
+        <meta property="og:image" content="https://bharath24news.com/og-image.png" />
       </Helmet>
 
       <div className="w-full px-4 lg:px-8 xl:px-12 pt-6 bg-brand-gray min-h-screen">

@@ -70,7 +70,10 @@ const Search = () => {
   return (
     <>
       <Helmet>
-        <title>Search - Bharath 24 News</title>
+        <title>Search News - Bharath 24 News</title>
+        <meta name="description" content="Search through latest Telugu news, politics, crime, entertainment, and sports on Bharath 24 News." />
+        <link rel="canonical" href="https://bharath24news.com/search" />
+        <meta name="robots" content="noindex, follow" />
       </Helmet>
 
       <div className="w-full px-4 lg:px-8 xl:px-12 pt-8">

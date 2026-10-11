@@ -99,6 +99,12 @@ const Category = () => {
     <>
       <Helmet>
         <title>{displayCategory} News - Bharath 24 News</title>
+        <meta name="description" content={`Read latest ${displayCategory} news in Telugu on Bharath 24 News.`} />
+        <link rel="canonical" href={`https://bharath24news.com/category/${categoryName}`} />
+        <meta property="og:title" content={`${displayCategory} News - Bharath 24 News`} />
+        <meta property="og:description" content={`Read latest ${displayCategory} news in Telugu on Bharath 24 News.`} />
+        <meta property="og:url" content={`https://bharath24news.com/category/${categoryName}`} />
+        <meta property="og:image" content="https://bharath24news.com/og-image.png" />
       </Helmet>
 
       <div className="bg-white min-h-screen pb-12 relative">

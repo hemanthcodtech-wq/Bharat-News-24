@@ -114,7 +114,7 @@ function NewsCard({ article, isTrending, liked, bookmarked, onLike, onBookmark, 
           border: '1px solid rgba(255, 255, 255, 0.1)'
         }}>
           <img src={logoImage} alt="Bharath 24 News" style={{ height: '16px', width: '16px', borderRadius: '4px', backgroundColor: 'white', objectFit: 'cover' }} />
-          <span style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.025em' }}>bharath24tv.com</span>
+          <span style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.025em' }}>bharath24news.com</span>
         </div>
       </div>
 
@@ -318,7 +318,13 @@ export default function Shorts({ type = 'news' }) {
   return (
     <>
       <Helmet>
-        <title>{isTrending ? 'Trending' : 'Latest News'} — Bharath 24 News</title>
+        <title>{isTrending ? 'ట్రెండింగ్ వార్తలు (Trending News)' : 'తాజా వార్తలు (Latest News)'} — Bharath 24 News</title>
+        <meta name="description" content="Watch quick Telugu news shorts and trending video summaries on Bharath 24 News." />
+        <link rel="canonical" href={`https://bharath24news.com/${isTrending ? 'trending' : 'flip'}`} />
+        <meta property="og:title" content={`${isTrending ? 'Trending News' : 'Latest News'} — Bharath 24 News`} />
+        <meta property="og:description" content="Watch quick Telugu news shorts and trending video summaries on Bharath 24 News." />
+        <meta property="og:url" content={`https://bharath24news.com/${isTrending ? 'trending' : 'flip'}`} />
+        <meta property="og:image" content="https://bharath24news.com/og-image.png" />
       </Helmet>
 
       <style>{`

@@ -97,20 +97,54 @@ const SingleArticle = () => {
     <>
       <Helmet>
         <title>{article.title} - Bharath 24 News</title>
-        <meta name="description" content={article.excerpt || ''} />
+        <meta name="description" content={article.excerpt || article.title} />
+        <link rel="canonical" href={`https://bharath24news.com/article/${encodeURIComponent(slug)}`} />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="Bharath 24 News" />
+        <meta property="og:locale" content="te_IN" />
         <meta property="og:title" content={article.title} />
-        <meta property="og:description" content={article.excerpt || ''} />
+        <meta property="og:description" content={article.excerpt || article.title} />
         {article.image && <meta property="og:image" content={article.image} />}
-        <meta property="og:url" content={window.location.href} />
+        <meta property="og:url" content={`https://bharath24news.com/article/${encodeURIComponent(slug)}`} />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={article.title} />
-        <meta name="twitter:description" content={article.excerpt || ''} />
+        <meta name="twitter:description" content={article.excerpt || article.title} />
         {article.image && <meta name="twitter:image" content={article.image} />}
+
+        {/* Schema.org NewsArticle Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "NewsArticle",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `https://bharath24news.com/article/${encodeURIComponent(slug)}`
+            },
+            "headline": article.title,
+            "description": article.excerpt || article.title,
+            "image": article.image ? [article.image] : ["https://bharath24news.com/logo.png"],
+            "datePublished": article.created_at,
+            "dateModified": article.updated_at || article.created_at,
+            "author": {
+              "@type": "Person",
+              "name": article.author || "Bharath 24 News"
+            },
+            "publisher": {
+              "@type": "NewsMediaOrganization",
+              "name": "Bharath 24 News",
+              "url": "https://bharath24news.com/",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://bharath24news.com/logo.png"
+              }
+            },
+            "articleSection": article.category || "News"
+          })}
+        </script>
       </Helmet>
 
       <div className="w-full px-4 lg:px-8 xl:px-12 pt-6">
@@ -174,13 +208,13 @@ const SingleArticle = () => {
               
               {/* Top Left Logo Overlay */}
               <div className="absolute top-4 left-4 bg-white/70 p-1.5 rounded backdrop-blur-sm shadow-md">
-                <img src={logoImage} alt="Balagam TV" className="h-10 md:h-14 object-contain" />
+                <img src={logoImage} alt="Bharath 24 News" className="h-10 md:h-14 object-contain" />
               </div>
 
               {/* Bottom Right Domain Overlay */}
               <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1.5 rounded-sm flex items-center space-x-2 backdrop-blur-sm text-xs md:text-sm shadow-lg border border-white/10">
-                <img src={logoImage} alt="Balagam TV" className="h-4 w-4 md:h-5 md:w-5 rounded bg-white object-cover" />
-                <span className="font-semibold tracking-wide">bharath24tv.com</span>
+                <img src={logoImage} alt="Bharath 24 News" className="h-4 w-4 md:h-5 md:w-5 rounded bg-white object-cover" />
+                <span className="font-semibold tracking-wide">bharath24news.com</span>
               </div>
             </div>
 
